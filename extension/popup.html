@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HIU Questionnaire</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <h1 class="title">HIU Questionnaire</h1>
+    <div class="button-container">
+      <!-- 打开 Google Sheet 按钮 -->
+      <button id="openSheet" class="btn">
+        <img src="icons/open-sheet.png" alt="Open Sheet" class="icon">
+        Create Questions
+      </button>
+      <!-- 转化为 Google Form 按钮 -->
+      <button id="convertToForm" class="btn">
+        <img src="icons/convert-to-form.png" alt="Convert to Form" class="icon">
+        Generate Questionnaire
+      </button>
+      <!-- 查看已有 Google Form 按钮 -->
+<!--       <button id="viewForms" class="btn">
+        <img src="icons/view-forms.png" alt="View Forms" class="icon">
+        My Questionnaire
+      </button> -->
+    </div>
+    <!-- 加载动画 -->
+	<div id="loadingSpinner" class="loading-spinner" style="display:none;">
+	  <div class="spinner"></div>
+	</div>
+
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

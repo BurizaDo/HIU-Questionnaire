@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 50px; 
+      margin-bottom: 40px;
+    }
+
+    .question {
+      font-size: 42px; 
+      font-weight: bold;
+      margin: 40px 0;
+    }
+
+    /* Slider container */
+    .slider-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin-top: 40px;
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+      font-size: 30px; 
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    input[type="range"] {
+      width: 50%; 
+      height: 30px; 
+    }
+
+    /* Button container */
+    .button-container {
+      margin-top: 50px;
+      display: none; /* Initially hide One More and Submit buttons */
+    }
+
+    button {
+      font-size: 32px; 
+      padding: 20px 40px;
+      cursor: pointer;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 15px;
+      margin: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Submission info section */
+    #submit-info-container {
+      display: none;
+      margin-top: 60px;
+      font-size: 32px; 
+    }
+
+    label {
+      font-size: 30px; 
+      display: block;
+      margin: 25px 0;
+    }
+
+    select, input[type="number"] {
+      font-size: 30px; 
+      padding: 15px;
+      width: 85%;
+      border: 3px solid #ccc;
+      border-radius: 10px;
+    }
+
+    /* Submit button */
+    .submit-button {
+      font-size: 32px;
+      padding: 20px 50px;
+      margin-top: 40px;
+      background-color: #28a745;
+    }
+
+    .submit-button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="survey-name">Survey Title</h1>
+
+  <!-- Question display container -->
+  <div id="questions-container">
+      <div class="question" id="question">Question text</div>
+
+      <!-- Slider with labels -->
+      <div>
+          <span style="font-size: 30px;">Negative</span>
+          <input type="range" id="slider" min="-10" max="10" step="1" value="0">
+          <span style="font-size: 30px;">Positive</span>
+          <br><br>
+          <div align="right">
+              <button onclick="nextQuestion()">Next</button>
+          </div>
+      </div>
+  </div>
+
+  <!-- Buttons for additional question or submission -->
+  <div id="button-container" class="button-container">
+    <button onclick="oneMore()">One more</button>
+    <button onclick="submitAnswers()">Submit</button>
+  </div>
+
+  <!-- Personal information form -->
+  <div id="submit-info-container">
+    <h2>Personal Info</h2>
+    <label for="gender">Gender:</label>
+    <select id="gender">
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Prefer not to answer">Prefer not to answer</option>
+    </select>
+    <br><br>
+    
+    <label for="age">Age:</label>
+    <select id="age">
+      <option value="20-30">20-30</option>
+      <option value="30-40">30-40</option>
+      <option value="40-50">40-50</option>
+      <option value="50-60">50-60</option>      
+      <option value="60+">60+</option>      
+      <option value="Prefer not to answer">Prefer not to answer</option>
+    </select>
+    <br><br>
+
+    <label for="education">Education Level:</label>
+    <select id="education">
+      <option value="High School">High School</option>
+      <option value="Bachelor">Bachelor's</option>
+      <option value="Master">Master's</option>
+      <option value="PhD">PhD</option>
+    </select>
+    <br><br>
+
+    <button id="submit-info-btn">Submit</button>
+  </div>
+
+  <script>
+    // Store user responses
+    const questions = ["Example question 1", "Example question 2"]; // Example questions
+    let responses = [];
+    let allResponses = [];
+    let currentQuestionIndex = 0;
+
+    // Display the current question
+    function showQuestion(index) {
+      document.getElementById('question').textContent = questions[index];
+      document.getElementById('slider').value = 0;
+    }
+
+    // Handle Next button click
+    function nextQuestion() {
+      responses.push(document.getElementById('slider').value);
+
+      if (currentQuestionIndex === questions.length - 1) {
+        document.getElementById('button-container').style.display = 'block';
+        document.getElementById('questions-container').style.display = 'none';
+      } else {
+        currentQuestionIndex++;
+        showQuestion(currentQuestionIndex);
+      }
+    }
+
+    // Handle One More button click
+    function oneMore() {
+      allResponses.push(responses);
+      responses = [];
+      currentQuestionIndex = 0;
+      showQuestion(currentQuestionIndex);
+      document.getElementById('button-container').style.display = 'none';
+      document.getElementById('questions-container').style.display = 'block';
+    }
+
+    // Handle Submit button click
+    function submitAnswers() {
+      allResponses.push(responses);
+      document.getElementById('submit-info-container').style.display = 'block';
+      document.getElementById('button-container').style.display = 'none';
+    }
+
+    // Handle personal info submission
+    document.getElementById('submit-info-btn').onclick = function() {
+      alert('Thank you for completing the survey!');
+      document.getElementById('submit-info-container').style.display = 'none';
+    };
+
+    // Initialize survey
+    showQuestion(currentQuestionIndex);
+  </script>
+</body>
+</html>
